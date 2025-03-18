@@ -7,6 +7,7 @@ import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "reac
 
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
+import MoviesCard from "@/components/MoviesCard";
 
 export default function Index() {
 
@@ -48,7 +49,9 @@ export default function Index() {
                 data={movies}
                 className="mt-2 pb-32"
                 renderItem={({ item }) => (
-                  <Text className="text-white text-sm">{item.title}</Text>
+                  <MoviesCard
+                    {...item}
+                  />
                 )}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={3}

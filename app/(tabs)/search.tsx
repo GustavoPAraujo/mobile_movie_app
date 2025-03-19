@@ -1,5 +1,5 @@
 import { View, Text, Image, FlatList, ActivityIndicator } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { images } from '@/constants/images'
 import { icons } from '@/constants/icons';
@@ -11,22 +11,38 @@ import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
 
 const Search = () => {
+  const [searchQuery, setSearchQuery] = useState('');
 
- 
 
-    const { 
-      data: movies, 
-      loading: moviesLoading, 
-      error: moviesError 
-    } = useFetch( () =>  fetchMovies({ query: '' }) , true );
+  const {
+    data: movies,
+    loading: moviesLoading, 
+    error: moviesError,
+    refetch: loadMovies,
+    reset
+  } = useFetch(() => fetchMovies({ query: searchQuery }), false);
+
+  useEffect(() => {
+    const timeout = setTimeout(
+      async () => {
+
+        if(searchQuery.trim()) {
+          await loadMovies()
+        } else {
+          reset()
+        }
+      }, 500)
+
+      return () => clearTimeout(timeout)
+  }, [searchQuery])
 
   return (
     <View className='flex-1 bg-primary'>
       <Image source={images.bg} className='flex-1 absolute w-full z-0' resizeMode='cover' />
 
-      <FlatList 
-        data={movies} 
-        renderItem={({item}) => <MoviesCard {...item} /> } 
+      <FlatList
+        data={movies}
+        renderItem={({ item }) => <MoviesCard {...item} />}
         keyExtractor={(item) => item.id.toString()}
         className='px-5'
         numColumns={3}
@@ -40,10 +56,14 @@ const Search = () => {
           <>
             <View className=' w-full flex-row items-center justify-center mt-20'>
               <Image source={icons.logo} className='w-12 h-10' />
-            </View>  
+            </View>
 
             <View className='my-5'>
-              <SearchBar placeholder='Search movies ...' />
+              <SearchBar 
+                placeholder='Search movies ...' 
+                value={searchQuery}
+                onChangeText={(text: string) => setSearchQuery(text)}
+              />
             </View>
 
             {moviesLoading && (
@@ -56,10 +76,10 @@ const Search = () => {
               </Text>
             )}
 
-            {!moviesLoading && !moviesError && 'SEARCH TERM'.trim() && movies?.length > 0 && (
+            {!moviesLoading && !moviesError && searchQuery.trim() && movies?.length > 0 && (
               <Text className='text-xl text-white font-bold'>
                 Search Results for{' '}
-                <Text className='text-accent'>SEARCH TERM</Text>
+                <Text className='text-accent'>{searchQuery}</Text>
               </Text>
             )}
           </>

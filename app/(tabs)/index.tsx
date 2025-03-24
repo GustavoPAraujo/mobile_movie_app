@@ -9,6 +9,7 @@ import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
 import { getTrendingMovies } from "@/services/appwrite"
 import MoviesCard from "@/components/MoviesCard";
+import TrendingCard from "@/components/TrendingCard";
 
 export default function Index() {
 
@@ -58,21 +59,23 @@ export default function Index() {
               <View className="mt-10 ">
                 <Text className="text-lg text-white font-bold mt-5 mb-3">Tranding movies</Text>
 
-
               </View>
             )}
 
             <>
-              <Text className="text-lg text-white font-bold mt-5 mb-3">Latest movies</Text>
-
               <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={() => <View className="w-4" />}
                 className="mb-4 mt-3"
                 data={trendingMovies}
                 renderItem={({ item, index }) => (
-                  <Text className="text-white text-sm">{item.title}</Text>
+                  <TrendingCard movie={item} index={index} />
                 )}
                 keyExtractor={(item) => item.movie_id.toString()}
               />
+
+              <Text className="text-lg text-white font-bold mt-5 mb-3">Latest movies</Text>
 
               <FlatList
                 data={movies}
@@ -95,9 +98,6 @@ export default function Index() {
             </>
           </View>
         )}
-
-
-
 
       </ScrollView>
 

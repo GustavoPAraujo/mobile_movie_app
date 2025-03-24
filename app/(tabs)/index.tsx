@@ -7,17 +7,24 @@ import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "reac
 
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
+import { getTrendingMovies } from "@/services/appwrite"
 import MoviesCard from "@/components/MoviesCard";
 
 export default function Index() {
 
   const router = useRouter();
 
-  const { 
-    data: movies, 
-    loading: moviesLoading, 
-    error: moviesError 
-  } = useFetch( () =>  fetchMovies({ query: '' }) , true );
+  const {
+    data: trendingMovies,
+    loading: trendingLoading,
+    error: trendingError
+  } = useFetch(getTrendingMovies)
+
+  const {
+    data: movies,
+    loading: moviesLoading,
+    error: moviesError
+  } = useFetch(() => fetchMovies({ query: '' }), true);
 
   return (
     <View className="flex-1 bg-primary">
@@ -32,24 +39,40 @@ export default function Index() {
       >
         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
 
-        {moviesLoading ? (
+        {moviesLoading || trendingLoading ? (
           <ActivityIndicator
             size="large"
             color="#0000ff"
             className="mt-10 self-center"
           />
-        ) : moviesError ? (
-          <Text>Error: {moviesError?.message}</Text>
+        ) : moviesError || trendingError ? (
+          <Text>Error: {moviesError?.message || trendingError?.message}</Text>
         ) : (
           <View className="flex-1 mt-5">
             <SearchBar
               onPress={() => router.push("/search")}
               placeholder="Search for a movie"
-              value=""
-              onChangeText={() => {}}
             />
+
+            {trendingMovies && (
+              <View className="mt-10 ">
+                <Text className="text-lg text-white font-bold mt-5 mb-3">Tranding movies</Text>
+
+
+              </View>
+            )}
+
             <>
               <Text className="text-lg text-white font-bold mt-5 mb-3">Latest movies</Text>
+
+              <FlatList
+                className="mb-4 mt-3"
+                data={trendingMovies}
+                renderItem={({ item, index }) => (
+                  <Text className="text-white text-sm">{item.title}</Text>
+                )}
+                keyExtractor={(item) => item.movie_id.toString()}
+              />
 
               <FlatList
                 data={movies}
@@ -68,7 +91,7 @@ export default function Index() {
                   marginBottom: 10
                 }}
                 scrollEnabled={false}
-               />
+              />
             </>
           </View>
         )}

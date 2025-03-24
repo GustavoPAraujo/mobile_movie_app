@@ -24,9 +24,12 @@ const Search = () => {
   } = useFetch(() => fetchMovies({ query: searchQuery }), false);
 
   useEffect(() => {
-    updateSearchCount(searchQuery, movies[0])
+    if (movies && movies.length > 0) {
+      updateSearchCount(searchQuery, movies[0])
+      console.log(movies[0])
+    }
+  
     console.log(searchQuery)
-    console.log(movies[0])
 
     const timeout = setTimeout(
       async () => {

@@ -1,50 +1,75 @@
-# Welcome to your Expo app 👋
+# 🎬 Movie App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### Construído com Expo, TypeScript e Tailwind CSS
 
-## Get started
+Este aplicativo busca filmes e cria um algoritmo de popularidade usando Appwrite. Ele proporciona uma experiência de navegação fluida, classificando os filmes com base em diversas métricas de engajamento.
 
-1. Install dependencies
+# 🚀 Tecnologias Utilizadas
 
-   ```bash
-   npm install
-   ```
+📱 **Expo** – Framework para desenvolvimento mobile
 
-2. Start the app
+📝 **TypeScript** – Tipagem estática para maior segurança
+ 
+🎨 **Tailwind CSS** – Estilização rápida e responsiva
 
-   ```bash
-    npx expo start
-   ```
+📊 **Appwrite** – Backend para armazenamento e algoritmos
 
-In the output, you'll find options to open the app in a
+# 📌 Recursos
+✔️ Busca dinâmica de filmes
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+✔️ Algoritmo de popularidade baseado no engajamento
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+✔️ Interface responsiva e moderna
 
-## Get a fresh project
+✔️ Alto desempenho e escalabilidade
 
-When you're ready, run:
 
-```bash
-npm run reset-project
+
+# 🤸 Rodando o Projeto  
+
+Siga estes passos para configurar o projeto localmente na sua máquina.  
+
+## 📋 Pré-requisitos  
+
+Certifique-se de ter os seguintes itens instalados:  
+
+- 🛠 **Git**  
+- 🚀 **Node.js**  
+- 📦 **npm** (Node Package Manager)  
+
+## 📂 Clonando o Repositório  
+
+```
+git clone https://github.com/GustavoPAraujo/mobile_movie_app.git
+cd mobile_movie_app
+```
+## 📥 Instalação
+
+Instale as dependências do projeto usando npm:
+
+```
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔑 Configuração de Variáveis de Ambiente
 
-## Learn more
+Crie um arquivo .env na raiz do projeto e adicione o seguinte conteúdo:
 
-To learn more about developing your project with Expo, look at the following resources:
+```
+EXPO_PUBLIC_MOVIE_API_KEY=
+EXPO_PUBLIC_APPWRITE_PROJECT_ID=
+EXPO_PUBLIC_APPWRITE_DATABASE_ID=
+EXPO_PUBLIC_APPWRITE_COLLECTION_ID=
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Substitua os valores acima com suas credenciais reais da TMDB API e do Appwrite.
+Você pode obter essas chaves criando uma conta no [TMDB](https://cloud.appwrite.io/console/login) e no [Appwrite](https://www.themoviedb.org/).
 
-## Join the community
+## ▶️ Executando o Projeto
 
-Join our community of developers creating universal apps.
+```
+npx expo start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Abra o Expo Go no seu celular e escaneie o QR Code para visualizar o projeto.
+
